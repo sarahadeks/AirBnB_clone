@@ -4,14 +4,30 @@
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     """Base class"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializes a new instance of the BaseModel class"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs is not None and kwargs != {}:
+            # Removes __class__ attr so as not to be added as an instance attr
+            # when recreating the instance from the dictionary representation
+            kwargs.pop('__class__', None)
+            for key in kwargs:
+                # strptime, str parse time: converts a str to datetime object
+                if key == "created_at":
+                    self.__dict__["created_at"] = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "updated_at":
+                    self.__dict__["updated_at"] = datetime.strptime(
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    self.__dict__[key] = kwargs[key]
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         """Updates the `updated_at` attribute with the current datetime"""
@@ -28,4 +44,4 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         return "[{}] ({}) {}".\
-                format(self.__class__.__name__, self.id, self.__dict__)
+            format(self.__class__.__name__, self.id, self.__dict__)
