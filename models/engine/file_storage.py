@@ -19,7 +19,6 @@ class FileStorage:
         """Returns the dictionary __objects"""
         return FileStorage.__objects
 
-
     def new(self, obj):
         """Adds a new object to the storage"""
         # making the key in this format <class name>.id
@@ -41,5 +40,5 @@ class FileStorage:
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             objdict = json.load(f)
             objdict = {k: FileStorage.__class_map[v["__class__"]](**v)
-                    for k, v in objdict.items()}
+                       for k, v in objdict.items()}
             FileStorage.__objects = objdict
