@@ -57,4 +57,5 @@ class FileStorage:
 
     @property
     def class_map(self):
+        """Getter function for __class_map"""
         return self.__class_map
