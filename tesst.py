@@ -4,7 +4,6 @@ import cmd
 from models import storage
 from models.base_model import BaseModel
 
-
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
 
@@ -25,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing when an empty line is entered
         """
         pass
-
+    
     def do_create(self, arg):
         """Create a new instance of BaseModel
         """
@@ -75,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 if obj_key not in storage.all():
                     print("** no instance found **")
                 else:
-                    del storage.all()[obj_key]
+                    del starage.all()[ob_key]
                     storage.save()
 
     def do_all(self, arg):
@@ -88,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 cls_name = args[0]
                 objs_of_cls = [str(obj) for obj in all_objs.values()
-                               if obj.__class__.__name__ == cls_name]
+                        if obj.__class__.__name__ == cls_name]
                 print(objs_of_cls)
         else:
             objs_of_cls = [str(obj) for obj in all_objs.values()]
@@ -104,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in storage.class_map:
             print("** class doesn't exist **")
             return
-
+        
         if len(args) < 2:
             print("** instance id missing **")
             return
@@ -122,8 +121,8 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) < 4:
             print("** value missing **")
-            return
-
+            return 
+        
         attr_name = args[2]
         attr_value = args[3]
 
@@ -134,21 +133,9 @@ class HBNBCommand(cmd.Cmd):
             # since inputs from the command line are by default str, we
             # we would want to cast our values to the proper types
             setattr(obj, attr_name, attr_type(attr_value))
-        else:
-            if attr_value.startswith('"') and attr_value.endswith('"'):
-                attr_value = attr_value[1:-1]
-            elif attr_value.startswith("'") and attr_value.endswith("'"):
-                attr_value = attr_value[1:-1]
-            else:
-                if attr_value.isdigit():
-                    attr_value = int(attr_value)
-                elif "." in attr_value:
-                    try:
-                        attr_value = float(attr_value)
-                    except ValueError:
-                        pass
-            setattr(obj, attr_name, (attr_value))
             obj.save()
+        else:
+            print("** attribute doesn't exist **")
 
 
 if __name__ == "__main__":

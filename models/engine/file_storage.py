@@ -42,3 +42,7 @@ class FileStorage:
             objdict = {k: FileStorage.__class_map[v["__class__"]](**v)
                        for k, v in objdict.items()}
             FileStorage.__objects = objdict
+
+    @property
+    def class_map(self):
+        return self.__class_map
