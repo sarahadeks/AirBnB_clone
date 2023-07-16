@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in storage.class_map:
                 print("** class doesn't exist **")
             elif len(args) < 2:
-                print("** class doesn't exist **")
+                print("** instance id missing **")
             else:
                 obj_key = "{}.{}".format(args[0], args[1])
                 if obj_key not in storage.all():
