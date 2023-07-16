@@ -3,6 +3,7 @@
 objects to/from a file"""
 import os
 import json
+import datetime
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -59,3 +60,48 @@ class FileStorage:
     def class_map(self):
         """Getter function for __class_map"""
         return self.__class_map
+
+    def attributes(self):
+        """Returns the valid attr and their types for each of the classes"""
+        attrs = {
+                "BaseModel": {
+                    "id": str,
+                    "created_at": datetime.datetime,
+                    "updated_at": datetime.datetime
+                    },
+                "User": {
+                    "email": str,
+                    "password": str,
+                    "first_name": str,
+                    "last_name": str
+                    },
+                "State": {
+                    "name": str
+                    },
+                "City": {
+                    "state_id": str,
+                    "name": str
+                    },
+                "Amenity": {
+                    "name": str
+                    },
+                "Place": {
+                    "city_id": str,
+                    "user_id": str,
+                    "name": str,
+                    "description": str,
+                    "number_rooms": int,
+                    "number_bathrooms": int,
+                    "max_guest": int,
+                    "price_by_night": int,
+                    "latitude": float,
+                    "longitude": float,
+                    "amenity_ids": list
+                    },
+                "Review": {
+                    "place_id": str,
+                    "user_id": str,
+                    "text": str
+                    }
+                }
+        return attrs
