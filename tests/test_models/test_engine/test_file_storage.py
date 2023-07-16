@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models import storage
+from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -18,11 +19,11 @@ class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         """Set up method executed before each test"""
-        storage._FileStorage__objects = {}
+        pass
 
     def tearDown(self):
-        """Clean up method executed after each test"""
-        storage._FileStorage__objects = {}
+        """Tear down method executed after each test"""
+        FileStorage._FileStorage__objects = {}
 
     def test_all(self):
         """Test if all() returns the correct objects dictionary"""
