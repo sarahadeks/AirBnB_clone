@@ -16,6 +16,23 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
+    def default(self, line):
+        """Called when the command prefix is not recognized.
+        Checks if the input matches the format <class name>.all() and
+        retrieves all instances of the specified class.
+        """
+        if line.endswith(".all()"):
+            class_name = line[:-6]
+            if class_name in storage.class_map:
+                all_instances = storage.all()
+                filtered_inst = [str(inst) for inst in all_instances.values()
+                                 if inst.__class__.__name__ == class_name]
+                print(filtered_inst)
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("*** Unknown syntax: {}".format(line))
+
     def do_quit(self, args):
         """Quit command to exit the program
         """
